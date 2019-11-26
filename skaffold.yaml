@@ -1,0 +1,12 @@
+apiVersion: skaffold/v1
+kind: Config
+metadata:
+  name: cloudnative
+build:
+  artifacts:
+  - image: shirhattiregistry.azurecr.io/k8s-skaffold/dotnet-example
+    context: webapi
+deploy:
+  kubectl:
+    manifests:
+    - k8s/deployment.yaml
