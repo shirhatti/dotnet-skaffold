@@ -26,4 +26,3 @@ spec:
       containers:
       - name: dotnet
         image: shirhattiregistry.azurecr.io/k8s-skaffold/dotnet-example
-
