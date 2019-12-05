@@ -1,0 +1,17 @@
+az role assignment create \
+    --assignee-object-id 33594a96-6bf5-48f4-bc68-4bfa0d72155f \
+    --role "Contributor" \
+    --scope /subscriptions/6de210d0-cc8d-4f7e-ba0b-295f894b0638/resourceGroups/shirhattik8sgroup
+
+
+SP_ID=$(az aks show --name shirhattik8scluster \
+    --query servicePrincipalProfile.clientId -o tsv)
+
+SP_SECRET=$(az ad sp credential reset --name $SP_ID --query password -o tsv)
+
+helm install stable/nginx-ingress \
+    --namespace ingress \
+    --set controller.replicaCount=2 \
+    --set controller.nodeSelector."beta\.kubernetes\.io/os"=linux \
+    --set defaultBackend.nodeSelector."beta\.kubernetes\.io/os"=linux \
+    --set controller.service.loadBalancerIP="40.78.47.192"

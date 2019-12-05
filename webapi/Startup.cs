@@ -26,6 +26,10 @@ namespace webapi
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+            services.AddMetrics(options=>
+            {
+                options.ProviderNames.Add("System.Runtime");
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -43,6 +47,7 @@ namespace webapi
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+                endpoints.MapMetricsEndpoint();
             });
         }
     }

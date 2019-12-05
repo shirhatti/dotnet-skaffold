@@ -2,9 +2,19 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.0</TargetFramework>
+    <RestoreSources>
+      $(RestoreSources);
+      https://api.nuget.org/v3/index.json;
+      https://dotnetfeed.blob.core.windows.net/aspnet-aspnetcore/index.json;
+      https://dotnetfeed.blob.core.windows.net/aspnet-extensions/index.json;
+      https://dotnetfeed.blob.core.windows.net/dotnet-core/index.json;
+    </RestoreSources>
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Serilog.Extensions.Logging" Version="3.0.1" />
+    <PackageReference Include="Serilog.Formatting.Compact" Version="1.1.0" />
+    <PackageReference Include="Serilog.Sinks.Console" Version="3.1.1" />
   </ItemGroup>
 
 </Project>

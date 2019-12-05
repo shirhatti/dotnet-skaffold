@@ -6,7 +6,20 @@ build:
   artifacts:
   - image: shirhattiregistry.azurecr.io/k8s-skaffold/dotnet-example
     context: webapi
+    docker:
+      dockerfile: Dockerfile
 deploy:
   kubectl:
     manifests:
     - k8s/deployment.yaml
+    - k8s/hello-world-ingress.yaml
+    - k8s/container-azm-ms-agentconfig.yaml
+profiles:
+- name: debug
+  patches:
+    - op: replace
+      path: /build/artifacts/0/docker/dockerfile
+      value: Debug.Dockerfile
+    - op: replace
+      path: /deploy/kubectl/manifests/0
+      value: k8s/deployment.debugger.yaml

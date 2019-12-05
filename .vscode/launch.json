@@ -1,0 +1,40 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Attach to k8s",
+            "type": "coreclr",
+            "request": "attach",
+            //"processId" : "${command:pickRemoteProcess}",
+            "processId" : "1",
+            "justMyCode": true,
+            "pipeTransport": {
+                "pipeProgram": "kubectl",
+                "pipeArgs": [
+                    "exec",
+                    "-i",
+                    "${input:podName}",
+                    "--"
+                ],
+                "pipeCwd": "${workspaceFolder}",
+                "debuggerPath": "/root/vsdbg/vsdbg",
+                "quoteArgs": false
+            },
+            "sourceFileMap": {
+                "/app": "${workspaceFolder}/webapi",
+            }
+        }
+    ],
+    "inputs": [
+        {
+            "id": "podName",
+            "description": "Pod name",
+            "default": "kubectl get pods --selector='app=dotnet-app' -o json | jq -r '.items[0].metadata.name'",
+            "type": "promptString"
+        }
+    ]
+}
+

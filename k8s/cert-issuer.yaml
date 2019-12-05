@@ -1,0 +1,12 @@
+apiVersion: cert-manager.io/v1alpha2
+kind: ClusterIssuer
+metadata:
+  name: letsencrypt-prod
+  namespace: ingress-basic
+spec:
+  acme:
+    server: https://acme-v02.api.letsencrypt.org/directory
+    email: shirhatti@outlook.com
+    privateKeySecretRef:
+      name: letsencrypt-prod
+    http01: {}
